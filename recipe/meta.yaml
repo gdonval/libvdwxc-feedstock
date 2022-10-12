@@ -30,12 +30,15 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('fortran') }}
+    - {{ mpi }}        # [mpi == 'openmpi' and build_platform != target_platform]
     - {{ mpi }}-mpicc  # [mpi != 'nompi']
     - {{ mpi }}-mpifort  # [mpi != 'nompi']
     - make  # [unix]
   host:
     - {{ mpi }}  # [mpi != 'nompi']
     - fftw * {{ mpi_prefix }}_*
+  run:
+    - {{ mpi }}  # [mpi != 'nompi']
 
 
 test:

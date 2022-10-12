@@ -2,6 +2,14 @@
 
 mkdir build && cd build
 
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
+  # This is only used by open-mpi's mpicc
+  # ignored in other cases
+  export OMPI_CC=$CC
+  export OMPI_CXX=$CXX
+  export OMPI_FC=$FC
+  export OPAL_PREFIX=$PREFIX
+fi
 
 if [[ x"$mpi" != x"nompi" ]]; then
   ../configure --prefix=$PREFIX --disable-static CC=mpicc FC=mpifort CFLAGS="$CFLAGS -O3 -ffast-math -funroll-loops" FCFLAGS="$CFLAGS -O3 -ffast-math -funroll-loops" --with-fftw3=$PREFIX --with-mpi=$PREFIX
