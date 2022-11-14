@@ -31,6 +31,8 @@ requirements:
     - {{ compiler('fortran') }}
     - {{ mpi }}        # [mpi == 'openmpi' and build_platform != target_platform]
     - make  # [unix]
+    - autotools_clang_conda  # [win]
+    - llvm-openmp  # [win]
   host:
     - {{ mpi }}  # [mpi != 'nompi']
     - fftw * {{ mpi_prefix }}_*  # [unix]
